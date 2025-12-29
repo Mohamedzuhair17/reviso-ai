@@ -29,7 +29,7 @@ st.set_page_config(
 
 # ================= SAFE GENERATION =================
 def safe_generate(prompt, retries=2):
-    for i in range(retries):
+    for _ in range(retries):
         try:
             return model.generate_content(prompt).text
         except ResourceExhausted:
@@ -37,12 +37,9 @@ def safe_generate(prompt, retries=2):
         except PermissionDenied:
             return (
                 "❌ Permission denied.\n\n"
-                "Please check:\n"
-                "• Gemini API enabled\n"
-                "• Billing attached\n"
-                "• Correct API key"
+                "Check API enablement and billing."
             )
-    return "⚠️ AI is busy. Please try again later."
+    return "⚠️ AI is busy. Try again later."
 
 # ================= SESSION =================
 if "mode" not in st.session_state:
@@ -68,7 +65,8 @@ if uploaded:
         st.error("No readable text found in PDF.")
         st.stop()
 
-    c1, c2, c3 = st.columns(3)
+    # ---------- MODES ----------
+    c1, c2, c3, c4 = st.columns(4)
 
     with c1:
         if st.button("🧠 Understand"):
@@ -88,14 +86,20 @@ if uploaded:
             st.session_state.output = None
             st.session_state.ppt = None
 
-    # ================= COOLDOWN =================
-    if time.time() - st.session_state.last_run < 10:
+    with c4:
+        if st.button("❓ Ask"):
+            st.session_state.mode = "qa"
+            st.session_state.output = None
+            st.session_state.ppt = None
+
+    # ---------- COOLDOWN ----------
+    if time.time() - st.session_state.last_run < 8:
         st.warning("Please wait a few seconds before generating again.")
         st.stop()
 
     st.session_state.last_run = time.time()
 
-    # ================= WORKING =================
+    # ---------- WORKING ----------
     if st.session_state.mode == "summary" and st.session_state.output is None:
         with st.spinner("Explaining your notes..."):
             st.session_state.output = safe_generate(
@@ -150,7 +154,28 @@ if uploaded:
             buf.seek(0)
             st.session_state.ppt = buf
 
-    # ================= OUTPUT =================
+    # ---------- QUESTIONING FEATURE ----------
+    if st.session_state.mode == "qa":
+        st.markdown("### Ask a question from your notes")
+        question = st.text_input("Type your question")
+
+        if question:
+            with st.spinner("Finding answer..."):
+                answer = safe_generate(
+                    f"""
+                    Answer the question strictly using the notes below.
+                    If not found, say so clearly.
+
+                    Notes:
+                    {notes[:6000]}
+
+                    Question:
+                    {question}
+                    """
+                )
+                st.session_state.output = answer
+
+    # ---------- OUTPUT ----------
     if st.session_state.output:
         st.markdown("### Output")
         st.write(st.session_state.output)
