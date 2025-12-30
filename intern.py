@@ -189,4 +189,3 @@ if uploaded:
 
 else:
     st.info("Upload your notes to begin.")
-
