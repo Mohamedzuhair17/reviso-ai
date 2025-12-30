@@ -1,26 +1,17 @@
 import io
-import os
 import streamlit as st
 import PyPDF2
 import google.generativeai as genai
 from pptx import Presentation
-from dotenv import load_dotenv
-
-# ================= LOAD ENV =================
-load_dotenv()
-
-API_KEY = os.getenv("GEMINI_API_KEY")
-if not API_KEY:
-    st.error("GEMINI_API_KEY not found. Check .env file.")
-    st.stop()
-
-genai.configure(api_key=API_KEY)
 
 # ================= CONFIG =================
 st.set_page_config(
     page_title="Reviso — The AI School Assistant",
     layout="wide"
 )
+
+API_KEY = "PASTE_YOUR_API_KEY_HERE"
+genai.configure(api_key=API_KEY)
 
 def get_model():
     for m in genai.list_models():
@@ -64,6 +55,7 @@ st.markdown(
 
     header, footer, #MainMenu { display:none; }
 
+    /* Sidebar reveal */
     section[data-testid="stSidebar"] {
         background:var(--panel);
         border-right:1px solid var(--border);
@@ -75,6 +67,7 @@ st.markdown(
         padding:3.5rem 0;
     }
 
+    /* Brand */
     .brand {
         font-size:3rem;
         font-weight:700;
@@ -87,6 +80,7 @@ st.markdown(
         animation: fadeUp 1s ease-out both;
     }
 
+    /* Buttons */
     button {
         background:var(--soft) !important;
         border:1px solid var(--border) !important;
@@ -106,6 +100,7 @@ st.markdown(
         transform: translateY(-2px) scale(.97);
     }
 
+    /* Output */
     .divider {
         display:flex;
         align-items:center;
@@ -129,6 +124,7 @@ st.markdown(
         animation: fadeUp 0.8s ease-out both;
     }
 
+    /* Info card */
     .info {
         background:var(--soft);
         border-radius:18px;
@@ -204,7 +200,7 @@ with center:
                 st.session_state.output = None
                 st.session_state.ppt = None
 
-        # ---------- WORKING (UNCHANGED) ----------
+        # ---------- WORKING (UNCHANGED PATTERN) ----------
         if st.session_state.mode == "summary" and st.session_state.output is None:
             with st.spinner("Reviso is explaining your notes..."):
                 st.session_state.output = model.generate_content(
@@ -228,13 +224,13 @@ with center:
                 t.shapes.title.text = "Study Notes"
                 t.placeholders[1].text = "Prepared using Reviso"
 
-                for block in outline.split("\n\n"):
-                    lines = block.split("\n")
+                for block in outline.split("\\n\\n"):
+                    lines = block.split("\\n")
                     if len(lines) < 2:
                         continue
                     s = prs.slides.add_slide(prs.slide_layouts[1])
                     s.shapes.title.text = lines[0][:60]
-                    s.placeholders[1].text = "\n".join(lines[1:])
+                    s.placeholders[1].text = "\\n".join(lines[1:])
 
                 buf = io.BytesIO()
                 prs.save(buf)
@@ -271,42 +267,3 @@ with right:
         """,
         unsafe_allow_html=True
     )
-    # ================= QUESTIONING CHATBOT =================
-    if st.session_state.output and st.session_state.mode in ["summary", "cheat"]:
-
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown("#### ❓ Ask Reviso")
-
-        question = st.text_input(
-            "Ask a question from the explanation",
-            placeholder="Type your doubt here..."
-        )
-
-        if st.button("Ask Question", use_container_width=True) and question.strip():
-            with st.spinner("Reviso is thinking..."):
-                answer = model.generate_content(
-                    f"""
-                    Answer the question strictly using the content below.
-
-                    NOTES:
-                    {notes[:8000]}
-
-                    GENERATED OUTPUT:
-                    {st.session_state.output[:8000]}
-
-                    QUESTION:
-                    {question}
-                    """
-                ).text
-
-            st.session_state.qa_chat.append((question, answer))
-
-        if st.session_state.qa_chat:
-            st.markdown("<hr style='border:0;border-top:1px solid #222;'>", unsafe_allow_html=True)
-            for q, a in reversed(st.session_state.qa_chat):
-                st.markdown(f"**You:** {q}")
-                st.markdown(
-                    f"<div style='color:#cfd3ff; font-size:.95rem; line-height:1.8;'>{a}</div>",
-                    unsafe_allow_html=True
-                )
-                st.markdown("<br>", unsafe_allow_html=True)
