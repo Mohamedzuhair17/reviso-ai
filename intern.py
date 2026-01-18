@@ -10,7 +10,7 @@ st.set_page_config(
     layout="wide"
 )
 
-API_KEY = "AIzaSyD8TXhNOiftQ-0kq1e_91Hv0cVy1IEcXb4"
+API_KEY = "GEMINI_API_KEY"
 genai.configure(api_key=API_KEY)
 
 def get_model():
@@ -233,3 +233,4 @@ QUESTION:
                 st.markdown(f"**🧑 You:** {msg}")
             else:
                 st.markdown(f"**🤖 Reviso:** {msg}")
+
