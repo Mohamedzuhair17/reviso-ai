@@ -16,7 +16,7 @@ genai.configure(api_key=API_KEY)
 
 def get_model():
     # Directly use a known supported model
-    return genai.GenerativeModel("gemini-1.5-flash")
+    return genai.GenerativeModel("gemini-2.0-flash")
 
 model = get_model()
 if model is None:
@@ -232,4 +232,5 @@ QUESTION:
                 st.markdown(f"**🧑 You:** {msg}")
             else:
                 st.markdown(f"**🤖 Reviso:** {msg}")
+
 
