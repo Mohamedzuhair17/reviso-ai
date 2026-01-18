@@ -10,14 +10,13 @@ st.set_page_config(
     layout="wide"
 )
 
-API_KEY = "GEMINI_API_KEY"
+# Get API key from Streamlit secrets
+API_KEY = st.secrets["gemini_api_key"]
 genai.configure(api_key=API_KEY)
 
 def get_model():
-    for m in genai.list_models():
-        if "generateContent" in m.supported_generation_methods:
-            return genai.GenerativeModel(m.name)
-    return None
+    # Directly use a known supported model
+    return genai.GenerativeModel("gemini-1.5-flash")
 
 model = get_model()
 if model is None:
@@ -79,7 +78,7 @@ st.markdown(
     .tagline {
         color:var(--muted);
         margin-bottom:3.2rem;
-        animation: fadeUp 1s ease-out both;
+        animation: fadeUp 0.8s ease-out both;
     }
 
     button {
@@ -233,4 +232,3 @@ QUESTION:
                 st.markdown(f"**🧑 You:** {msg}")
             else:
                 st.markdown(f"**🤖 Reviso:** {msg}")
-
