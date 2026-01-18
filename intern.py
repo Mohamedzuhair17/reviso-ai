@@ -11,7 +11,7 @@ st.set_page_config(
 )
 
 # Get API key from Streamlit secrets
-API_KEY = st.secrets["gemini_api_key"]
+API_KEY = st.secrets["GEMINI_API_KEY"]
 genai.configure(api_key=API_KEY)
 
 def get_model():
@@ -232,3 +232,4 @@ QUESTION:
                 st.markdown(f"**🧑 You:** {msg}")
             else:
                 st.markdown(f"**🤖 Reviso:** {msg}")
+
