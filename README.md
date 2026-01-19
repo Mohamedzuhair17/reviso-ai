@@ -1,151 +1,105 @@
- 📘 Reviso – The AI School Assistant
+📘 Reviso – The AI School Assistant
+Learn smarter. Revise faster. Present better.
 
-Reviso is a Streamlit-based AI application that helps students **understand, revise, present, and question their own study notes**.  
-By uploading a PDF, students can generate **deep explanations**, **exam-ready cheat sheets**, **presentation slides**, and **context-aware answers**, all powered by Google Gemini.
+Reviso is an AI-powered academic assistant built with Streamlit that helps students understand, revise, present, and question their own study notes — all from a single uploaded PDF.
+Powered by Google Gemini, Reviso transforms study materials into deep explanations, concise summaries, professional slides, and context-aware Q&A.
 
----
+✨ Key Features
+🧠 Understand: Generate detailed, structured, exam-oriented explanations from your notes.
 
-## ✨ Features
+📄 Revise: Create a clear, one-page cheat sheet for instant review.
 
-- 🧠 **Understand**  
-  Generates deep, structured, exam-oriented explanations from notes.
+📊 Present: Automatically build professional PowerPoint slides from your material.
 
-- 📄 **Revise**  
-  Creates a concise one-page cheat sheet for quick revision.
+❓ Ask Questions: Get natural-language answers strictly based on your uploaded notes.
 
-- 📊 **Present**  
-  Automatically generates a professional PowerPoint presentation from notes.
+🔒 Secure API Handling: API keys are managed via environment variables / Streamlit Secrets — never exposed in code.
 
-- ❓ **Ask Questions**  
-  Ask natural-language questions and get answers strictly based on the uploaded notes.
+☁️ Cloud Ready: Fully deployable on Streamlit Cloud with safe quota and permission handling.
 
-- 🔒 **Secure API Handling**  
-  Uses environment variables / Streamlit Secrets — no API keys in GitHub.
+🛠️ Tech Stack
+Frontend & Framework: Streamlit
 
-- ☁️ **Cloud Ready**  
-  Deployed on Streamlit Cloud with quota-safe and permission-safe handling.
+AI Model: Google Gemini (gemini-1.5-flash)
 
----
+PDF Parsing: PyPDF2
 
-## 🛠️ Tech Stack
+Presentation Builder: python-pptx
 
-- **Frontend & App Framework**: Streamlit  
-- **AI Model**: Google Gemini (`gemini-1.5-flash`)  
-- **PDF Processing**: PyPDF2  
-- **Presentation Generation**: python-pptx  
-- **Environment Management**: python-dotenv  
+Env Management: python-dotenv
 
----
-
-## 📁 Project Structure
-
+📁 Project Structure
+text
 REVISO-AI-SCHOOL-ASSISTANT/
-│── intern.py # Main Streamlit app
-│── requirements.txt # Dependencies
-│── .gitignore # Git ignore rules
-│── .env # API key (local only, not committed)
+│── intern.py              # Main Streamlit app
+│── requirements.txt       # Dependencies
+│── .gitignore             # Git ignore rules
+│── .env                   # Local API key storage (not committed)
+🚀 Local Setup
+1️⃣ Clone the repository
 
-yaml
-Copy code
-
----
-
-## 🚀 Getting Started (Local Setup)
-
-### 1️⃣ Clone the repository
-```bash
+bash
 git clone https://github.com/Mohamedzuhair17/REVISO-AI-SCHOOL-ASSISTANT.git
 cd REVISO-AI-SCHOOL-ASSISTANT
-2️⃣ Create virtual environment (recommended)
+2️⃣ Create a virtual environment
+
 bash
-Copy code
 python -m venv .venv
 .venv\Scripts\activate    # Windows
 # source .venv/bin/activate  # macOS/Linux
 3️⃣ Install dependencies
+
 bash
-Copy code
 pip install -r requirements.txt
-4️⃣ Create .env file
-env
-Copy code
+4️⃣ Add your API key to .env
+
+text
 GEMINI_API_KEY=YOUR_API_KEY_HERE
 5️⃣ Run the app
+
 bash
-Copy code
 streamlit run intern.py
-☁️ Deployment (Streamlit Cloud)
-Push the repository to GitHub
+☁️ Deploy on Streamlit Cloud
+Push your repo to GitHub
 
-Go to 👉 https://share.streamlit.io
+Visit Streamlit Cloud
 
-Deploy the repo
+Deploy the repository
 
-Add Secrets:
+Add the following secret:
 
-toml
-Copy code
+text
 GEMINI_API_KEY = "YOUR_API_KEY_HERE"
-Reboot the app
+Reboot the app and you’re live 🎉
 
-⚠️ Notes on API Usage
-The app uses gemini-1.5-flash, the latest publicly available and stable Gemini model.
-
-Input size and request frequency are limited to avoid quota exhaustion.
-
-Graceful error handling is implemented for:
+⚠️ Notes on Usage
+The app uses gemini-1.5-flash, the latest stable model.
+It includes safeguards for:
 
 Quota limits
 
 Permission errors
 
-Temporary API unavailability
+Temporary unavailability
 
-🎓 Academic Use Case
-Reviso is designed for:
+Error messages are gracefully handled for a smooth learning experience.
 
-Exam preparation
+🎓 Academic Applications
+Ideal for:
 
-Concept clarification
+Exam preparation & note summarization
 
-Quick revision
+Concept clarification for study sessions
 
-Presentation preparation
+Presentation generation for assignments
 
-Interactive learning from notes
+Interactive Q&A learning from course material
 
-It is suitable for college projects, demos, and academic submissions.
+Perfect for college projects, academic demos, and learning showcases.
 
 👨‍💻 Author
 Mohamed Zuhair
 GitHub: @Mohamedzuhair17
 
-📜 License
-This project is for educational purposes.
-Feel free to fork and modify for learning and academic use.
-
-markdown
-Copy code
-
----
-
-### ✅ What this README gives you
-- Faculty-friendly explanation  
-- Clear feature listing  
-- Proper deployment instructions  
-- Professional GitHub appearance  
-- No overclaiming, no fluff  
-
-If you want next:
-- Add **screenshots section**
-- Add **architecture diagram**
-- Add **future scope**
-- Make it **IEEE / report-ready**
-
-Just tell me 👍
-
-
-
-
-
+📜 This project is for educational use. Feel free to fork and modify for your academic or learning purposes.
 
