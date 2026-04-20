@@ -1,3 +1,23 @@
+<!-- EFFECTS-BLOCK:START -->
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=F6F1EA&height=180&section=header&text=Reviso%20Ai&fontSize=44&fontColor=111111&desc=LLM-powered%20knowledge%20extraction%20pipeline%20converting%20raw%20academic%20content%20into%20structured%20study%20assets.&descSize=14&descAlignY=68" alt="Reviso Ai" />
+</p>
+
+<p align="center">
+  <a href="https://github.com/Mohamedzuhair17/reviso-ai"><img src="https://img.shields.io/badge/Repository-111111?style=for-the-badge&logo=github" alt="repo" /></a>
+  <img src="https://img.shields.io/github/stars/Mohamedzuhair17/=for-the-badge&color=111111" alt="stars" />
+  <img src="https://img.shields.io/github/forks/Mohamedzuhair17/=for-the-badge&color=111111" alt="forks" />
+  <img src="https://img.shields.io/github/last-commit/Mohamedzuhair17/=for-the-badge&color=111111" alt="last commit" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Stack-Python-F6F1EA?style=for-the-badge&labelColor=111111&color=F6F1EA" alt="stack" />
+  <img src="https://img.shields.io/badge/Engineering-Production%20Grade-111111?style=for-the-badge" alt="engineering" />
+</p>
+<!-- EFFECTS-BLOCK:END -->
+
+---
+
 📘 Reviso – The AI School Assistant
 Learn smarter. Revise faster. Present better.
 
